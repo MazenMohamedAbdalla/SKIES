@@ -12,7 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SKIES">
-        <activity android:name=".myBookingsNotFound"></activity>
+        <activity android:name=".BankAccountSide"></activity>
+        <activity android:name=".EnterPassword" />
+        <activity android:name=".EditUserInfo" />
+        <activity android:name=".UpdateBankAcc" />
+        <activity android:name=".DeleteBankAcc" />
+        <activity android:name=".cancelBookedFlight" />
+        <activity android:name=".bookFlight" />
+        <activity android:name=".AddBankAcc" />
+        <activity android:name=".myBookingsNotFound" />
         <activity android:name=".searchNotFound" />
         <activity android:name=".searchResults" />
         <activity android:name=".mybooking" />

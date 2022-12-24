@@ -25,10 +25,10 @@
         android:layout_height="wrap_content"
         android:text="create an account to manage your bookings"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/textView_c"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView_c"
         app:layout_constraintTop_toBottomOf="@+id/textView_c"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -57,14 +57,15 @@
         android:ems="10"
         android:hint="Your email"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/black"
-
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.223" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextPassword_c"
@@ -74,13 +75,15 @@
         android:ems="10"
         android:hint="your password"
         android:inputType="textPassword"
-        android:textColorHint="@color/black"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.067" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextConfirmPassword"
@@ -90,32 +93,38 @@
         android:ems="10"
         android:hint="Confirm password"
         android:inputType="textPassword"
-        android:textColorHint="@color/black"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress"
-        app:layout_constraintVertical_bias="0.338" />
+        app:layout_constraintVertical_bias="0.303" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/editTextTextPersonName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
         android:background="@drawable/log_sign_text_filed"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="textPersonName"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         app:layout_constraintBottom_toTopOf="@+id/editTextEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.933" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.64" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sign_up_button"
-        android:layout_width="320dp"
-        android:layout_height="70dp"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
         android:background="@drawable/on_click"
         android:text="SIGN UP"
         android:textColor="@color/white"

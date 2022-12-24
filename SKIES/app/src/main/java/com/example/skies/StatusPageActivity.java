@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ public class StatusPageActivity extends AppCompatActivity {
         Button search = (Button) findViewById(R.id.search_button);
         Button settings = (Button) findViewById(R.id.button4);
         Button checkStatus = (Button) findViewById(R.id.button);
+        Button back = (Button) findViewById(R.id.button2);
         EditText flightNumber = (EditText) findViewById(R.id.editTextTextPersonName2);
         user use = new user();
 
@@ -62,17 +64,33 @@ public class StatusPageActivity extends AppCompatActivity {
         checkStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               boolean found = use.flightStatus(flightNumber.getText().toString());
-               if(found){
-                   Intent foundStatus = new Intent(StatusPageActivity.this,FoundFlightStatus.class);
-                   startActivity(foundStatus);
-                   finish();
-               }
-               else{
-                   Intent notFoundStatus = new Intent(StatusPageActivity.this,NotFoundStatus.class);
-                   startActivity(notFoundStatus);
-                   finish();
-               }
+
+                if(TextUtils.isEmpty(flightNumber.getText().toString())){
+                    flightNumber.setError("This entry cannot be empty");
+                }
+                else{
+                    boolean found = use.flightStatus(flightNumber.getText().toString());
+                    if(found){
+                        Intent foundStatus = new Intent(StatusPageActivity.this,FoundFlightStatus.class);
+                        startActivity(foundStatus);
+                        finish();
+                    }
+                    else{
+                        Intent notFoundStatus = new Intent(StatusPageActivity.this,NotFoundStatus.class);
+                        startActivity(notFoundStatus);
+                        finish();
+                    }
+                }
+            }
+        });
+
+        // go to home
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(StatusPageActivity.this,HomeScreenActivity.class);
+                startActivity(home);
+                finish();
             }
         });
     }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,14 +23,15 @@ public class UpdateBankAcc extends AppCompatActivity {
         EditText cardholder = (EditText) findViewById(R.id.editTextTextPersonName7);
         EditText expDate = (EditText) findViewById(R.id.editTextTextPersonName8);
         EditText cvv = (EditText) findViewById(R.id.editTextNumber3);
+        String oldCardNumber = getIntent().getStringExtra("cardNumber");
         user use =  new user();
 
-        // Back to settings page
+        // Back to BankSide page
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settings = new Intent(UpdateBankAcc.this,SettingActivity.class);
-                startActivity(settings);
+                Intent bankSide = new Intent(UpdateBankAcc.this,BankAccountSide.class);
+                startActivity(bankSide);
                 finish();
             }
         });
@@ -37,22 +39,36 @@ public class UpdateBankAcc extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean updated = use.updateBankAccount("",cardNumber.getText().toString(),cardholder.getText().toString(),expDate.getText().toString(),cvv.getText().toString());
-                if(updated){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(UpdateBankAcc.this,"updated Successfully",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                if(TextUtils.isEmpty(cardNumber.getText().toString())){
+                    cardNumber.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(cardholder.getText().toString())){
+                    cardholder.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(expDate.getText().toString())){
+                    expDate.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(cvv.getText().toString())){
+                    cvv.setError("This entry cannot be empty");
                 }
                 else{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(UpdateBankAcc.this,"Enter valid data",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    boolean updated = use.updateBankAccount(oldCardNumber,cardNumber.getText().toString(),cardholder.getText().toString(),expDate.getText().toString(),cvv.getText().toString());
+                    if(updated){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(UpdateBankAcc.this,"updated Successfully",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else{
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(UpdateBankAcc.this,"Enter valid data",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
             }
         });

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +21,7 @@ public class feedbackActivity extends AppCompatActivity {
         Button backButton = findViewById(R.id.button2);
         Button submit = findViewById(R.id.button);
         EditText feedback = findViewById(R.id.editTextTextPersonName6);
-        // Back to Status page
+        // Back to home
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,22 +34,27 @@ public class feedbackActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean submitted = use.userFeedback(feedback.getText().toString());
-                if(submitted){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(feedbackActivity.this,"Submitted !",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                if(TextUtils.isEmpty(feedback.getText().toString())){
+                    feedback.setError("Empty field");
                 }
                 else{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(feedbackActivity.this,"Failed to submit check your connection!",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                    boolean submitted = use.userFeedback(feedback.getText().toString());
+                    if(submitted){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(feedbackActivity.this,"Submitted !",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else{
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(feedbackActivity.this,"Failed to submit check your connection!",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
             }
         });

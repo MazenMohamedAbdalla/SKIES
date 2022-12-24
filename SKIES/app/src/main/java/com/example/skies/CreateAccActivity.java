@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,7 @@ public class CreateAccActivity extends AppCompatActivity {
         Button signUp = (Button) findViewById(R.id.sign_up_button);
         EditText name = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText email = (EditText) findViewById(R.id.editTextEmailAddress);
-        EditText pass = (EditText) findViewById(R.id.editTextPassword);
+        EditText pass = (EditText) findViewById(R.id.editTextPassword_c);
         EditText cPass = (EditText) findViewById(R.id.editTextConfirmPassword);
 
         user use = new user();
@@ -44,29 +45,42 @@ public class CreateAccActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String password = pass.getText().toString();
-                if(password.length() >= 8){
-                    boolean signedUp = use.signUp(name.getText().toString(),email.getText().toString(),password,cPass.getText().toString());
-                    if(signedUp){
+                if(TextUtils.isEmpty(name.getText().toString())){
+                    name.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(email.getText().toString())){
+                    email.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(password)){
+                    pass.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(cPass.getText().toString())){
+                    cPass.setError("This entry cannot be empty");
+                }
+                else {
+                    if(password.length() >= 8){
+                        boolean signedUp = use.signUp(name.getText().toString(),email.getText().toString(),password,cPass.getText().toString());
+                        if(signedUp){
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(CreateAccActivity.this,"Signed up successfully",Toast.LENGTH_LONG).show();
+                                }
+                            });
+                            // move to login
+                            Intent addBAcc = new Intent(CreateAccActivity.this,firstUseAddBankAcc.class);
+                            startActivity(addBAcc);
+                            finish();
+                        }
+                    }else{
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(CreateAccActivity.this,"Signed up successfully",Toast.LENGTH_LONG).show();
+                                Toast.makeText(CreateAccActivity.this,"Your password should be at least 8 chars",Toast.LENGTH_LONG).show();
                             }
                         });
-                        // move to login
-                        Intent loginPage = new Intent(CreateAccActivity.this,logInActivity.class);
-                        startActivity(loginPage);
-                        finish();
                     }
-                }else{
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(CreateAccActivity.this,"Your password should be at least 8 chars",Toast.LENGTH_LONG).show();
-                        }
-                    });
                 }
-
             }
         });
     }

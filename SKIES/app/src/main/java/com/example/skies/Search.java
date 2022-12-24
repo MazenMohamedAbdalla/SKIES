@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 
@@ -24,11 +27,11 @@ public class Search extends AppCompatActivity {
         Button settings = (Button) findViewById(R.id.button4);
         Button backButton = (Button) findViewById(R.id.button2);
         Button searchBtt = (Button) findViewById(R.id.button);
+
         EditText from = (EditText) findViewById(R.id.editTextTextPersonName3);
         EditText to = (EditText) findViewById(R.id.editTextTextPersonName4);
         EditText depDate = (EditText) findViewById(R.id.editTextDate);
-        EditText numberOfTickets = (EditText) findViewById(R.id.editTextNumber);
-        EditText flightClass = (EditText) findViewById(R.id.editTextTextPersonName5);
+        RadioGroup radioGroup = findViewById(R.id.radioG);
 
         // move to status
         status.setOnClickListener(new View.OnClickListener() {
@@ -60,23 +63,48 @@ public class Search extends AppCompatActivity {
             }
         });
 
+        // Back to Home page
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(Search.this,HomeScreenActivity.class);
+                startActivity(home);
+                finish();
+            }
+        });
+
+
         searchBtt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList <String> results = use.searchFlight(from.getText().toString(),to.getText().toString(),depDate.getText().toString(),flightClass.getText().toString());
-                if(results.size() > 0){
-                    flight.setStatus(from.getText().toString());
-                    flight.setDestination(to.getText().toString());
-                    flight.setDepartureDate(depDate.getText().toString());
-                    flight.setFlightClass(flightClass.getText().toString()); //
-                    Intent searchResults = new Intent(Search .this,searchResults.class);
-                    startActivity(searchResults);
-                    finish();
+                if(TextUtils.isEmpty(from.getText().toString())){
+                    from.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(to.getText().toString())){
+                    to.setError("This entry cannot be empty");
+                }
+                else if(TextUtils.isEmpty(depDate.getText().toString())){
+                    depDate.setError("This entry cannot be empty");
                 }
                 else{
-                    Intent searchNotFound = new Intent(Search.this,searchNotFound.class);
-                    startActivity(searchNotFound);
-                    finish();
+                    int radioId = radioGroup.getCheckedRadioButtonId();
+                    RadioButton flightClass = findViewById(radioId);
+                    
+                    ArrayList <ArrayList<String>> results = use.searchFlight(from.getText().toString(),to.getText().toString(),depDate.getText().toString(),flightClass.getText().toString());
+                    if(results.get(0).size() > 0){
+                        flight.setStatus(from.getText().toString());
+                        flight.setDestination(to.getText().toString());
+                        flight.setDepartureDate(depDate.getText().toString());
+                        flight.setFlightClass(flightClass.getText().toString());
+                        Intent searchResults = new Intent(Search.this,searchResults.class);
+                        startActivity(searchResults);
+                        finish();
+                    }
+                    else{
+                        Intent searchNotFound = new Intent(Search.this,searchNotFound.class);
+                        startActivity(searchNotFound);
+                        finish();
+                    }
                 }
             }
         });

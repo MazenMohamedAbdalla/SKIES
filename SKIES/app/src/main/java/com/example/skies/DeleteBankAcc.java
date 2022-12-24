@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,14 +20,15 @@ public class DeleteBankAcc extends AppCompatActivity {
         Button backButton = (Button) findViewById(R.id.button2);
         Button delete = (Button) findViewById(R.id.button);
         EditText cvv = (EditText) findViewById(R.id.editTextNumber3);
+        String oldCardNumber = getIntent().getStringExtra("cardNumber");
         user use = new user();
 
-        // Back to settings page
+        // Back to bankSide page
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settings = new Intent(DeleteBankAcc.this,SettingActivity.class);
-                startActivity(settings);
+                Intent bankSide = new Intent(DeleteBankAcc.this,BankAccountSide.class);
+                startActivity(bankSide);
                 finish();
             }
         });
@@ -35,22 +37,27 @@ public class DeleteBankAcc extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean deleted = use.deleteBankAccount("",cvv.getText().toString());
-                if(deleted){
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(DeleteBankAcc.this,"Deleted Successfully",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                if(TextUtils.isEmpty(cvv.getText().toString())){
+                    cvv.setError("This entry cannot be empty");
                 }
-                else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(DeleteBankAcc.this,"Check The CVV number",Toast.LENGTH_LONG).show();
-                        }
-                    });
+                else{
+                    boolean deleted = use.deleteBankAccount(oldCardNumber,cvv.getText().toString());
+                    if(deleted){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DeleteBankAcc.this,"Deleted Successfully",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DeleteBankAcc.this,"Check The CVV number",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
                 }
             }
         });

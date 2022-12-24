@@ -12,7 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SKIES">
-        <activity android:name=".BankAccountSide"></activity>
+        <activity android:name=".firstUseAddBankAcc"></activity>
+        <activity android:name=".bookAnotherOne" />
+        <activity android:name=".viewSelected" />
+        <activity android:name=".SelectedCardNumber" />
+        <activity android:name=".NoBankAccounts" />
+        <activity android:name=".BankAccountSide" />
         <activity android:name=".EnterPassword" />
         <activity android:name=".EditUserInfo" />
         <activity android:name=".UpdateBankAcc" />

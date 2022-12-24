@@ -21,8 +21,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/log_in_button"
-        android:layout_width="320dp"
-        android:layout_height="70dp"
+        android:layout_width="310dp"
+        android:layout_height="55dp"
         android:background="@drawable/on_click"
         android:text="LOG IN"
         android:textColor="@color/white"
@@ -40,11 +40,12 @@
         android:id="@+id/editTextEmailAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         android:background="@drawable/log_sign_text_filed"
         android:ems="10"
         android:hint="Your email"
-        android:textColorHint="@color/black"
         android:inputType="textEmailAddress"
 
         app:layout_constraintBottom_toBottomOf="parent"
@@ -61,8 +62,10 @@
         android:background="@drawable/log_sign_text_filed"
         android:ems="10"
         android:hint="Password"
-        android:textColorHint="@color/black"
         android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:textColorHint="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -105,10 +108,10 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.259" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
@@ -134,5 +137,15 @@
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.07" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button13"
+        android:layout_width="127dp"
+        android:layout_height="15dp"
+        android:background="@drawable/forgot_in_login"
+        app:layout_constraintBottom_toTopOf="@+id/log_in_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

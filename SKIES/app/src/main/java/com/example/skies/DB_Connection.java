@@ -1,4 +1,5 @@
 package com.example.skies;
+import android.annotation.SuppressLint;
 import android.os.StrictMode;
 import android.util.Log;
 
@@ -7,17 +8,19 @@ import java.sql.DriverManager;
 
 public class DB_Connection {
     private static final String user = "root";
-    private static final String pass = "admin";
-    private static Connection connect =null;
+    private static final String pass = "";
+    private Connection connect = null;
+
+    @SuppressLint("NewApi")
     public Connection Connect_DB(){
         StrictMode.ThreadPolicy Policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(Policy);
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver").getDeclaredConstructor().newInstance();
-            String URL = "jdbc:mysql://127.0.0.1:3306/?user=root/";
+            Class.forName("com.mysql.jdbc.Driver");
+            String URL = "jdbc:mysql://192.168.1.9:3306/";
             connect = DriverManager.getConnection(URL,user,pass);
         }catch (Exception e){
-            Log.e("Error",e.getMessage());
+            e.printStackTrace();
         }
         return connect;
     }

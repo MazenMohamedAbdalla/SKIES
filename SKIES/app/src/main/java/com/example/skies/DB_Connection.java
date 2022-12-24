@@ -8,10 +8,8 @@ import java.sql.DriverManager;
 public class DB_Connection {
     private static final String user = "root";
     private static final String pass = "admin";
-    private String DB_Name;
     private static Connection connect =null;
-    public Connection Connect_DB(String DB_Name){
-        DB_Name = this.DB_Name;
+    public Connection Connect_DB(){
         StrictMode.ThreadPolicy Policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(Policy);
         try{

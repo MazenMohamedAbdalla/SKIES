@@ -20,37 +20,60 @@ public class StatusPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status_page);
+
+        Button home = (Button) findViewById(R.id.home_button);
+        Button search = (Button) findViewById(R.id.search_button);
+        Button settings = (Button) findViewById(R.id.button4);
         Button checkStatus = (Button) findViewById(R.id.button);
-        Button backButton = (Button) findViewById(R.id.button2);
         EditText flightNumber = (EditText) findViewById(R.id.editTextTextPersonName2);
-
         user use = new user();
-        checkStatus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               String fNum = flightNumber.getText().toString();
-               boolean success = use.checkFlightStatus(fNum);
-               if(success){
-                   Intent FoundPage = new Intent(StatusPageActivity.this,FoundFlightStatus.class);
-                   startActivity(FoundPage);
-                   finish();
-               }
-               else{
-                   Intent notFoundPage = new Intent(StatusPageActivity.this,NotFoundStatus.class);
-                   startActivity(notFoundPage);
-                   finish();
-               }
-            }
-        });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        // move to home
+        home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(StatusPageActivity.this,HomeScreenActivity.class);
-                startActivity(home);
+                Intent search = new Intent(StatusPageActivity.this,HomeScreenActivity.class);
+                startActivity(search);
                 finish();
             }
         });
 
+        // move to search
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent search = new Intent(StatusPageActivity.this,Search.class);
+                startActivity(search);
+                finish();
+            }
+        });
+
+        // move to settings
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settings = new Intent(StatusPageActivity.this,SettingActivity.class);
+                startActivity(settings);
+                finish();
+            }
+        });
+
+        // check status of flight
+        checkStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               boolean found = use.flightStatus(flightNumber.getText().toString());
+               if(found){
+                   Intent foundStatus = new Intent(StatusPageActivity.this,FoundFlightStatus.class);
+                   startActivity(foundStatus);
+                   finish();
+               }
+               else{
+                   Intent notFoundStatus = new Intent(StatusPageActivity.this,NotFoundStatus.class);
+                   startActivity(notFoundStatus);
+                   finish();
+               }
+            }
+        });
     }
 }

@@ -28,47 +28,46 @@ public class CreateAccActivity extends AppCompatActivity {
         EditText pass = (EditText) findViewById(R.id.editTextPassword);
         EditText cPass = (EditText) findViewById(R.id.editTextConfirmPassword);
 
-        user user = new user();
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               String userName = name.getText().toString();
-               String userEmail = email.getText().toString();
-               String userPass = pass.getText().toString();
-               String conPass = cPass.getText().toString();
-               boolean success = user.signUp(userName,userEmail,userPass,conPass);
-
-               if(success){
-                   runOnUiThread(new Runnable() {
-                       @Override
-                       public void run() {
-                           Toast.makeText(CreateAccActivity.this,"Done successfully",Toast.LENGTH_LONG).show();
-                       }
-                   });
-
-                   Intent login = new Intent(CreateAccActivity.this,logInActivity.class);
-                   startActivity(login);
-                   finish();
-
-               }else{
-                   runOnUiThread(new Runnable() {
-                       @Override
-                       public void run() {
-                           Toast.makeText(CreateAccActivity.this,"Process Failed",Toast.LENGTH_LONG).show();
-                       }
-                   });
-               }
-            }
-        });
-
+        user use = new user();
+        // move to login page (Already have an account)
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent login = new Intent(CreateAccActivity.this,logInActivity.class);
-                startActivity(login);
+                Intent loginPage = new Intent(CreateAccActivity.this,logInActivity.class);
+                startActivity(loginPage);
                 finish();
             }
         });
 
+        // signup
+        signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String password = pass.getText().toString();
+                if(password.length() >= 8){
+                    boolean signedUp = use.signUp(name.getText().toString(),email.getText().toString(),password,cPass.getText().toString());
+                    if(signedUp){
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(CreateAccActivity.this,"Signed up successfully",Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        // move to login
+                        Intent loginPage = new Intent(CreateAccActivity.this,logInActivity.class);
+                        startActivity(loginPage);
+                        finish();
+                    }
+                }else{
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(CreateAccActivity.this,"Your password should be at least 8 chars",Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+
+            }
+        });
     }
 }

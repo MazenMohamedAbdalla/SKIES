@@ -14,8 +14,20 @@ public class NotFoundStatus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_not_found_status);
 
-        Button tryAgain = findViewById(R.id.button5);
+        Button tryAgain = (Button) findViewById(R.id.button5);
+        Button backButton = (Button) findViewById(R.id.button2);
+
         tryAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent statusPage = new Intent(NotFoundStatus.this,StatusPageActivity.class);
+                startActivity(statusPage);
+                finish();
+            }
+        });
+
+        // Back to Status page
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent statusPage = new Intent(NotFoundStatus.this,StatusPageActivity.class);

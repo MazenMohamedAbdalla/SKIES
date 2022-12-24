@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.sql.Connection;
@@ -25,44 +26,49 @@ public class logInActivity extends AppCompatActivity {
         EditText password = (EditText) findViewById(R.id.editTextPassword);
         Button logIn = (Button) findViewById(R.id.log_in_button);
         Button signUp = (Button) findViewById(R.id.sign_button);
-        user user = new user();
+
+        user use = new user();
+        // login
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String em = email.getText().toString();
-                String pass = password.getText().toString();
-                boolean success = user.logIn(em,pass);
-                if(success){
+                // saving the input
+                boolean logged = use.logIn(email.getText().toString(),password.getText().toString());
+                // if true
+                if(logged){
+                    // Display logged in successfully
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(logInActivity.this,"LoggedIn",Toast.LENGTH_LONG).show();
+                            Toast.makeText(logInActivity.this,"Logged in successfully",Toast.LENGTH_LONG).show();
                         }
                     });
+
+                    // move to home screen
                     Intent homePage = new Intent(logInActivity.this,HomeScreenActivity.class);
                     startActivity(homePage);
                     finish();
-                }else{
+                }
+                // check your email or password
+                else{
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(logInActivity.this,"Check your email or password",Toast.LENGTH_LONG).show();
                         }
                     });
-                    email.setText("");
-                    password.setText("");
                 }
             }
         });
 
+        // move to signup page
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent signUp = new Intent(logInActivity.this,CreateAccActivity.class);
-                startActivity(signUp);
+                Intent signup = new Intent(logInActivity.this,CreateAccActivity.class);
+                startActivity(signup);
                 finish();
             }
         });
-
     }
 }
